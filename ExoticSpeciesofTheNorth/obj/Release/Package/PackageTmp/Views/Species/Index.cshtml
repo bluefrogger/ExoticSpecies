@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ExoticSpeciesOfTheNorth.Models.Species>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section styles {
+    @Styles.Render("~/Content/css/Species")
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SpeciesHomeland.HomelandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpeciesName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateIntroduced)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpeciesHomeland.HomelandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpeciesName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateIntroduced)
+        </td>
+        <td>
+            @{ Html.RenderPartial("_IndexLinks", item); }
+        </td>
+        <td class="action-ajax" data-url="/Species/_IndexImages"></td>
+    </tr>
+}
+
+</table>
+
+@section scripts {
+    <script>
+        //Ajax image loading for performance
+        $(function () {
+            $(".action-ajax").each(function (index, element) {
+                var self = this;
+                var dataUrl = $(element).data("url");
+                
+                var ajaxRequest = $.ajax({
+                    method: "GET",
+                    url: dataUrl
+                });
+
+                ajaxRequest.done(function (data) {
+                    $(self).html(data);
+                });
+            });
+        });
+    </script>
+}

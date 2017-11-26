@@ -1,0 +1,92 @@
+﻿@* 
+    Author: Alex Yoo
+    Content: Search all homelands and species for text. Accordion affect on homeland heading, hiding species.
+    Usage: return View()
+*@
+
+@model IEnumerable<ExoticSpeciesOfTheNorth.Models.Homeland>
+
+@{
+    ViewBag.Title = "Homelands";
+}
+
+@section styles {
+    @Styles.Render("~/Content/css/Homelands")
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div>
+    <input type="text" id="input-search" value="Search" />
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HomelandName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tr-search">
+            <td>
+                <h3 class="h3-accordion">@Html.DisplayFor(modelItem => item.HomelandName)</h3>
+                @{ Html.RenderAction("_SpeciesForHomeland", "Species", new { homelandId = item.HomelandId }); }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.HomelandId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.HomelandId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.HomelandId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts {
+    <script>
+        //Search homelands and species
+        var listItems = $(".tr-search");
+        var inputSearch = $("#input-search");
+
+        function searchTerms() {
+            var inputSearchTerms = $("#input-search").val().toLowerCase();
+
+            for (i = 0; i < listItems.length; i++) {
+                var listItemValue = listItems[i].innerHTML.toLowerCase();
+
+                if (listItemValue.indexOf(inputSearchTerms) > -1) {
+                    listItems[i].style.display = "";
+                }
+                else {
+                    listItems[i].style.display = "none";
+                }
+            }
+        }
+        inputSearch.select();
+        inputSearch.on("focus", function () {
+            $(this).select();
+        });
+        inputSearch.on("keyup", searchTerms);
+
+        //Accordion homeland for species
+        $(".h3-accordion").on("click", function () {
+            var myContent = $(this).next();
+            
+            if (myContent.css("display") === "none")
+            {
+                myContent.show();
+                $(".arrow").remove();
+            }
+            else
+            {
+                myContent.hide();
+                $(this).append("<span class='arrow'>&raquo;</span>");
+            }
+        });
+    </script>
+}

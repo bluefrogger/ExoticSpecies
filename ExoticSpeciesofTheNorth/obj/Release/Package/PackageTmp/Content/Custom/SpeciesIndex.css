@@ -1,0 +1,24 @@
+﻿/*
+    Author: Alex Yoo
+    Content: ~/Species/Index css
+    Usage: @Scripts.Render("~/Content/css/Index")
+*/
+body {
+}
+
+.draggable-shape {
+    width: 300px;
+    height: 150px;
+    background-color: darkkhaki;
+    cursor: move;
+    color: midnightblue;
+}
+
+#div-shape {
+    position: fixed;
+    background-color: darkcyan;
+}
+
+#textarea-postit {
+    position: fixed;
+}

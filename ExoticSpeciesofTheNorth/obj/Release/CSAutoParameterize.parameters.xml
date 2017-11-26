@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="MyDB-Web.config Connection String" description="MyDB Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:exoticspeciesofthenorthdbserver.database.windows.net,1433;&#xD;&#xA;        Initial Catalog=ExoticSpeciesOfTheNorth_db;&#xD;&#xA;        Persist Security Info=False;&#xD;&#xA;        User ID=EsotnAdmin;&#xD;&#xA;        Password=Barbecue1;&#xD;&#xA;        MultipleActiveResultSets=False;&#xD;&#xA;        Encrypt=True;&#xD;&#xA;        TrustServerCertificate=False;&#xD;&#xA;        Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\VisualStudio\\Projects\\ExoticSpeciesOfTheNorth\\ExoticSpeciesofTheNorth\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MyDB']/@connectionString" />
+  </parameter>
+  <parameter name="ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext-Web.config Connection String" description="ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext Connection String used in web.config by the application to access the database." defaultValue="ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\VisualStudio\\Projects\\ExoticSpeciesOfTheNorth\\ExoticSpeciesofTheNorth\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext']/@connectionString" />
+  </parameter>
+  <parameter name="ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext_DatabasePublish-Web.config Connection String" description="ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\VisualStudio\\Projects\\ExoticSpeciesOfTheNorth\\ExoticSpeciesofTheNorth\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ExoticSpeciesOfTheNorth.Models.ExoticSpeciesDbContext_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>

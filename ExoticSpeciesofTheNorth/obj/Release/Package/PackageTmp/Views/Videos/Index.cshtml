@@ -1,0 +1,55 @@
+﻿@*
+    Author: Alex Yoo
+    Content: A moveable postit shared across everyone viewing the page.
+    Usage: controller
+*@
+
+@section styles {
+    @Styles.Render("~/Content/css/Species")    
+}
+
+@* The movable postit in a larger div to make draggable *@
+<div class="draggable-shape" id="div-shape">
+    <textarea class="draggable-shape" id="textarea-postit"></textarea>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            // Move shape signalR
+            var chatHub = $.connection.chatHub;
+            var draggableShapes = $(".draggable-shape");
+            var divShape = $("#div-shape");
+            var textareaPostit = $("#textarea-postit");
+
+            // Broadcast the shape movement to all browsers
+            chatHub.client.shapeMoved = function (x, y) {
+                divShape.css({ left: x, top: y });
+                textareaPostit.css({ left: x, top: y });
+            }
+
+            var postit = $("#textarea-postit");
+
+            // Broadcast the posit message to all browsers
+            chatHub.client.showPostit = function(message) {
+                postit.val(message);
+            }
+
+            $.connection.hub.start().done(function () {
+                // jquery widget for sending dragging to server
+                divShape.draggable({
+                    drag: function () {
+                        chatHub.server.moveShape(this.offsetLeft, this.offsetTop);
+                    }
+                });
+
+                // jquery event for sending message to server
+                postit.on("blur", function () {
+                    chatHub.server.sendPostit(postit.val());
+                });
+            });
+        });
+    </script>    
+}
