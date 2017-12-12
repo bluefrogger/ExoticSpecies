@@ -1,0 +1,138 @@
+﻿@* 
+    Author: Alex Yoo
+    Content: Index for the website. Navigation for all other controllers. Links to external sites.
+        Chat box in the header for everyone viewing the page.
+    Usage: return View()
+*@
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section styles {
+    @Styles.Render("~/Content/css/Home")
+}
+
+<div class="jumbotron" id="home-index-jumbotron">
+    <div class="row row-jumbotron full-height" id="row-jumbotron-splash">
+        <h1>North American Exotic Species</h1>
+        <hr class="lead" />
+        <div class="col-md-3 col-unindent">
+            <p>
+                <a href="https://www.nwf.org/Wildlife/Threats-to-Wildlife/Invasive-Species.aspx" class="btn btn-default">
+                    <picture>
+                        <source srcset="~/Content/images/nwflogo-small.png" media="(max-width: 768px)" />
+                        <source srcset="~/Content/images/nwflogo-small-portrait.jpg" media="(max-width: 991px)" />
+                        <source srcset="~/Content/images/nwflogo-medium.png" media="(max-width: 1199px)" />
+                        <img class="img-responsive" src="~/Content/images/nwflogo-medium-portrait.jpg" alt="default nwflogo" />
+                    </picture>&raquo;
+                </a>
+            </p>
+        </div>
+        <div class="col-md-4" id="div-row-jumbotron">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="input-chat" class="control-label control-label-chat col-md-2">Chat:</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control form-control-chat" id="input-chat" name="input-chat">Chat here...</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-group" class="control-label control-label-chat col-md-2">Group:</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control form-control-chat" id="input-group" name="input-group" value="Active" />
+                    </div>
+                    <div id="input-group-old" display="hidden"></div>
+                </div>
+                <button type="submit" class="btn btn-block" id="btn-chat">Submit</button>
+            </div>
+        </div>
+        <div class="col-md-5 div-full-height" id="div-list-chat">
+            <ul id="unordered-list-chat"></ul>
+        </div>
+    </div>
+</div>
+
+<div class="row row-ltr">
+    <div class="col-md-3 col-sm-6 col-utd">
+        <h2>House Sparrow</h2>
+        <p><a class="btn btn-default" href="https://www.thespruce.com/house-sparrow-identification-385983"  >
+            <img class="img-responsive img-link" src="~/Content/images/house-sparrow-male-female.jpg" />&raquo;</a></p>
+        <ul></ul>
+    </div>
+    <div class="col-md-3 col-sm-6 col-utd">
+        <h2>European Starling</h2>
+        <p><a class="btn btn-default" href="https://www.thespruce.com/european-starling-identification-385980">
+            <img class="img-responsive img-link" src="~/Content/images/european-starling_17163_600x450.jpg" />&raquo;</a></p>
+        <ul></ul>
+    </div>
+    <div class="col-md-3 col-sm-6 col-utd">
+        <h2>Emerald Ash Borer</h2>
+        <p><a class="btn btn-default" href="http://emeraldashborer.info/">
+               <img class="img-responsive img-link" src="~/Content/images/emerald-ash-borer.jpg" />&raquo;</a></p>
+        <ul></ul>
+    </div>
+    <div class="col-md-3 col-sm-6 col-utd">
+        <h2>Asian Longhorned Beetle</h2>
+        <p><a class="btn btn-default" href="http://www.dec.ny.gov/animals/7255.html">
+               <img class="img-responsive img-link" src="~/Content/images/albfemale.jpg" />&raquo;</a></p>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        // Chat signalR
+        var chatHub = $.connection.chatHub;
+        var inputGroup = $("#input-group");
+        var inputGroupOld = $("#input-group-old");
+        var inputChat = $("#input-chat");
+        var btnChat = $("#btn-chat");
+        var btnGroup = $("#btn-group");
+        var unorderedListChat = $("#unordered-list-chat");
+
+        chatHub.client.showNotification = function (myMessage) {
+            unorderedListChat.append("<p>***" + myMessage + "***</p>");
+        }
+
+        chatHub.client.showMessage = function (myMessage) {
+            unorderedListChat.append("<p>" + myMessage + "</p>");
+        }
+        
+        $.connection.hub.start().done(function () {
+            chatHub.server.addToGroup(inputGroup.val());
+            inputGroupOld.val(inputGroup.val());
+            
+            @if (ViewBag.NotifyUsers)
+            {
+                <text>chatHub.server.sendNotification(inputGroup.val(), "A new species has been spotted!! Go to the Species page...");</text>
+            }
+
+            btnGroup.click(function () {
+                chatHub.server.removeFromGroup(inputGroupOld.val());
+                chatHub.server.addToGroup(inputGroup.val());
+            });
+
+            btnChat.click(function () {
+                chatHub.server.sendMessage(inputGroup.val(), inputChat.val());
+            });
+        });
+
+        //Set chat box height when window resizes
+        var containerChat = $("#row-jumbotron-splash");
+        var divListChat = $("#div-list-chat");
+        var listChat = $("#unordered-list-chat");
+
+        function setHeight() {
+            divListChat.height(containerChat.height() - 130);
+            listChat.height(containerChat.height() - 130);
+        }
+
+        (function () {
+            setHeight();
+        });
+
+        $(window).resize(setHeight());
+    </script>
+}

@@ -1,0 +1,12 @@
+﻿/*
+    Author: Alex Yoo
+    Contents: ~/Homelands/Index css
+    Usage: @Scripts.Render("~/Content/css/Homelands")
+*/
+ll
+body {
+}
+
+#input-search{
+    color: midnightblue;
+}

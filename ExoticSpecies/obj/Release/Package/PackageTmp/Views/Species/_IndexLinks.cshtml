@@ -1,0 +1,12 @@
+﻿@* 
+    Author: Alex Yoo
+    Content: Refactored index links to other crud operations.
+        For a partial view without an action. Proof of concept.
+    Usage: Html.RenderPartial("_IndexLinks", "Species")
+*@
+
+@model ExoticSpeciesOfTheNorth.Models.Species
+
+@Html.ActionLink("Edit", "Edit", new { id = Model.SpeciesId }) |
+@Html.ActionLink("Details", "Details", new { id = Model.SpeciesId }) |
+@Html.ActionLink("Delete", "Delete", new { id = Model.SpeciesId })

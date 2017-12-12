@@ -1,0 +1,16 @@
+﻿@* 
+    Author: Alex Yoo
+    Content: Partial view switching model from Homeland to Species
+    Usage: Html.RenderAction("_SpeciesForHomeland", "Homeland", new {homelandId = item.HomelandId})
+*@
+
+@model IEnumerable<ExoticSpeciesOfTheNorth.Models.Species>
+
+<div class="">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>@Html.DisplayFor(modelItem => item.SpeciesName)</li>
+        }
+    </ul>
+</div>

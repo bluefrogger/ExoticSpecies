@@ -1,0 +1,39 @@
+﻿@model ExoticSpeciesOfTheNorth.Models.Species
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Species</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SpeciesHomeland.HomelandName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpeciesHomeland.HomelandName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpeciesName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpeciesName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateIntroduced)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateIntroduced)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SpeciesId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

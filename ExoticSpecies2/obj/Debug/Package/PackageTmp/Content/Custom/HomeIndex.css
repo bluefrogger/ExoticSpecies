@@ -1,0 +1,61 @@
+﻿/*
+    Author: Alex Yoo
+    Contents: ~/Home/Index css
+    Usage: @Styles.Render("~/Content/css/Home")
+*/
+html, body , .full-height {
+}
+
+#btn-chat {
+    color: midnightblue;
+}
+
+#home-index-jumbotron {
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: darkslategrey;
+}
+
+h2 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-height: 2.2em;
+    max-height: 2.2em;
+}
+
+@media screen and (max-width: 768px) {
+    h1, h2 {
+        font-size: 1.5em;
+    }
+}
+
+.row-ltr {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.col-utd {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: 5px solid #2b3e50;
+    border-radius: 10px;
+    background-color: darkslategrey;
+}
+
+.col-unindent {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#unordered-list-chat {
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+.div-full-height {
+    border: 3px solid teal;
+    overflow-y: hidden
+}
